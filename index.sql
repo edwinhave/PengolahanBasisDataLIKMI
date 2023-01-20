@@ -224,3 +224,76 @@ Select
     TRUNC(SYSDATE,'MONTH'),
     TRUNC(SYSDATE,'YEAR')
 from Dual;
+
+⬇️PERTEMUAN 5 -- 20/01/2023
+--Pertemuan 5 20/01/2023
+
+SELECT last_name,
+TO_CHAR(hire_date, 'fmDAY MON YEAR')
+AS HIREDATE
+FROM hr.employees;
+
+SELECT * FROM hr.employees WHERE OrderDate='2008-11-11';
+
+--Menggunakan Fungsi TO_CHAR dengan Angka
+SELECT last_name,TO_CHAR(salary, '$99,999.00') SALARY
+FROM hr.employees
+WHERE last_name = 'Ernst';
+
+--Example of RR Date Format
+SELECT last_name, TO_CHAR(hire_date, 'DD-Mon-YYYY')
+FROM hr.employees
+WHERE hire_date < TO_DATE('01-Jan-23','DD-Mon-RR');
+
+--Nesting Functions ➡️Initcap(Upper(Lower(Field)))
+SELECT last_name,
+SUBSTR (LAST_NAME, 1, 8), '_US'
+FROM hr.employees
+WHERE department_id = 60;
+
+SELECT last_name,
+CONCAT(SUBSTR (LAST_NAME, 1, 8), '_US')
+FROM hr.employees
+WHERE department_id = 60;
+
+SELECT last_name,
+UPPER(CONCAT(SUBSTR (LAST_NAME, 1, 8), '_US'))
+FROM hr.employees
+WHERE department_id = 60;
+
+--Menggunakan Fungsi NVL
+--NVL BIASA HANYA NULL YANG BISA DIRUBAH
+SELECT last_name, salary, NVL(commission_pct, 0),
+(salary*12) + (salary*12*NVL(commission_pct, 0)) AN_SAL
+FROM hr.employees;
+
+--Menggunakan Fungsi NVL2
+--Mirip Fungsi IF
+-- Istilah bahasanya adalah
+-- Jika Commission_PCT = NULL maka 'Sal'
+-- else Commission_PCT <> NULL maka 'Sal+Com'
+--NVL2 MAU NULL ATAU APAPUN BISA DIRUBAH
+SELECT last_name, salary, commission_pct,
+NVL2(commission_pct,'COMMISION', '3') income
+FROM hr.employees WHERE department_id IN (50, 80);
+
+--FUNGSI NULLIF ADALAH
+--JIKA MAU MEMBANDIKAN "2 DATA", DAN KALAU "HASILNYA SAMA", MAKA HASILNYA NULL. 
+SELECT first_name, LENGTH(first_name) "expr1",
+last_name, LENGTH(last_name) "expr2",
+NULLIF(LENGTH(first_name), LENGTH(last_name)) result
+FROM hr.employees;
+
+-- A = NULL & B <> NULL ==> A=B
+-- A <> NULL & B = NULL ==> B=A
+-- A = NULL & B = NULL ==> C
+
+SELECT last_name,manager_id,commission_pct,
+COALESCE(manager_id,commission_pct, null) comm
+FROM hr.employees
+ORDER BY commission_pct; 
+
+SELECT last_name,manager_id,commission_pct,
+COALESCE(manager_id,commission_pct, -1) comm
+FROM hr.employees
+ORDER BY commission_pct; 
