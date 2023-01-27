@@ -296,4 +296,103 @@ ORDER BY commission_pct;
 SELECT last_name,manager_id,commission_pct,
 COALESCE(manager_id,commission_pct, -1) comm
 FROM hr.employees
-ORDER BY commission_pct; 
+ORDER BY commission_pct;
+
+⬇️PERTEMUAN 6 -- 24/01/2023
+--Pertemuan 6 24/01/2023
+
+
+⬇️PERTEMUAN 7 -- 24/01/2023
+--Pertemuan 7 24/01/2023
+--📢FUNGSI AGREGAT harus menggunakan Having
+
+SELECT 
+FROM table
+WHERE condition
+GROUP BY column
+ORDER BY column
+
+SELECT ROUND(AVG(salary)), MAX(salary),
+MIN(salary), SUM(salary)
+FROM hr.employees
+WHERE job_id LIKE '%REP%';
+
+SELECT MIN(hire_date), MAX(hire_date)
+FROM hr.employees;
+
+--MENAMPILKAN TOTAL DATA YANG AKU PUNYA
+SELECT COUNT(*)
+FROM hr.employees
+WHERE department_id = 50; --KALAU ADA "WHERE" DENGAN KONDISI TERTENTU
+
+-- MENGHITUNG YANG TIDAK NULL
+SELECT COUNT(commission_pct) 
+FROM hr.employees
+WHERE department_id = 80; 
+
+--DISTINCT
+SELECT COUNT(DISTINCT department_id)
+FROM hr.employees;
+
+--Group Functions and Null Values
+SELECT AVG(commission_pct)
+FROM hr.employees; --NULLNYA TIDAK DIHITUNG ==> TOTAL COMISION / 35 
+
+SELECT AVG(NVL(commission_pct, 0))
+FROM hr.employees; -- INI NULLNYA DI HITUNG KARENA TOTAL DATA PADA TABEL ==> TOTAL COMMISION / 45
+
+select * from hr.employees;
+
+--Menggunakan Klausa GROUP BY
+SELECT  first_name, department_id, ROUND(AVG(salary)) 
+FROM hr.employees 
+GROUP BY department_id, first_name;
+
+--setiap field yang gak ada fungsi agregat diletakan di "group by"
+--gak semua field harus ditampilkan
+
+--DI GROUP BY GAK BOLEH MAKE ALIAS
+SELECT department_id as dept_id, job_id, SUM(salary)
+FROM hr.employees
+GROUP BY department_id, job_id ;
+
+SELECT department_id, COUNT(last_name)
+FROM hr.employees -- ini akan error
+--> harus tambahin 
+GROUP BY department_id,last_name;
+
+
+--Illegal Queries Using Group Functions
+--FUNGSI AGREGAT TIDAK PERNAH BOLEH DILETAKKAN DI WHERE
+
+SELECT department_id, AVG(salary)
+FROM employees
+WHERE AVG(salary) > 8000
+GROUP BY department_id;
+
+--URUTAN SYNTAX LIVE SQL
+SELECT first_name,last_name, department_id,AVG(salary)
+FROM hr.employees
+WHERE 
+GROUP BY department_id
+HAVING AVG(salary)
+ORDER BY AVG(salary);
+
+--Using the HAVING Clause
+SELECT department_id, MAX(salary)
+FROM hr.employees
+GROUP BY department_id
+HAVING MAX(salary)>10000 ;
+
+SELECT job_id, SUM(salary) PAYROLL
+FROM hr.employees
+WHERE job_id NOT LIKE '%REP%'
+GROUP BY job_id
+HAVING SUM(salary) > 13000
+ORDER BY SUM(salary);
+
+
+--Nesting Group Functions
+SELECT MAX(AVG(salary))
+FROM hr.employees
+GROUP BY department_id;
