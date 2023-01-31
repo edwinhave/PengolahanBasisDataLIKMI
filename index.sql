@@ -396,3 +396,79 @@ ORDER BY SUM(salary);
 SELECT MAX(AVG(salary))
 FROM hr.employees
 GROUP BY department_id;
+
+
+pertemuan 8
+SELECT first_name, department_id, department_name, manager_id
+From hr.employees NATURAL JOIN hr.departments
+ORDER BY Department_id ; --keluar 32 rows
+--natural join itu untuk menggabungkan data antara dua tabel dimana panjang data dan tipe datanya sama
+
+SELECT first_name, department_id, department_name
+From hr.employees JOIN hr.departments USING (department_id)
+ORDER BY department_id; -- keluar 50 rows
+-- join using itu menggabungkan antara 2 tabel menggunakan usingnya apa
+-- join using tidak menggunakan alias ataupun imbuhan
+
+SELECT first_name, department_id, department_name
+From hr.employees JOIN hr.departments USING (department_id)
+ORDER BY department_id;  -- ini eror
+--manager_id tidak punya tabel
+
+SELECT first_name, D.department_id , department_name, d.manager_id
+From hr.employees e JOIN hr.departments d
+ON (E.department_id= D.department_id);
+--manager_id dan department_id harus dikasih imbuhan atau alias
+
+--SYNTAX CROSS JOIN
+SELECT first_name, department_name,
+FROM hr.employees, hr.departments;
+
+
+--JOIN ON JOIN ON
+-- apa yang ada di table a dan B di gabungkan dengan JOIN ON
+SELECT first_name, D.department_id , department_name, city
+From hr.employees e JOIN hr.departments d
+ON (E.department_id= D.department_id)
+JOIN hr.Locations L
+On (D.location_id = L.location_id);
+
+
+--SELF JOIN
+-- JOIN KEPADA DIRINYA SENDIRI UNTUK TABEL BARU DENGAN CARA ALIAS
+-- CONTOH SOAL !! TAMPILAKAN DATA PEGAWAI YANG MEMILIKI MANAGER !!
+-- Nama Field tidak pernah JAMAK
+-- udah jelas baca aja!!!!
+SELECT M.FIRST_NAME, M.LAST_NAME, E.FIRST_NAME, E.LAST_NAME
+FROM hr.employees E JOIN hr.employees M
+ON (E.manager_id = M.employee_id);
+
+
+-- CONTAH SOAL : TAMPILKAN NAMA BELAKANG DEPARTMENT ID & DEPARTMENT NAME
+
+SELECT last_name, E.department_id , department_name
+From hr.employees E 
+LEFT OUTER JOIN hr.departments D
+ON (E.department_id = D.department_id)
+ORDER BY department_id;
+
+SELECT LAST_name, D.department_id , department_name
+From hr.departments E 
+LEFT OUTER JOIN hr.employees D
+ON (E.department_id = D.department_id)
+ORDER BY department_id;
+
+SELECT last_name, D.department_id , department_name
+From hr.employees E 
+FULL OUTER JOIN hr.departments D
+ON (E.department_id = D.department_id)
+ORDER BY department_id;
+
+--contoh soal
+-- tampilkan nama pegawai yang tinggal di washinton
+SELECT first_name, D.department_id, state_province
+From hr.employees e JOIN hr.departments d
+ON (E.department_id= D.department_id)
+JOIN hr.Locations L
+On (D.location_id = L.location_id)
+WHERE state_province LIKE 'Washington';
