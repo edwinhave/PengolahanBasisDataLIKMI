@@ -6,7 +6,7 @@ From hr.employees NATURAL JOIN hr.departments;
 2. Tampilkan nama dari semua pegawai yang memiliki nama yang mengandung karakter ‘A’ pada huruf ketiga.
 SELECT first_name
 FROM hr.employees
-WHERE SUBSTR(first_name,3,1) = 'a';
+WHERE UPPER(SUBSTR(first_name,3,1)) = 'a';
 
 3. tampilkan last name, gaji dari pegawai yang gajina tidak ada diantara 5000 dan 12000
 SELECT last_name
@@ -40,6 +40,9 @@ WHERE last_name LIKE 'J%' OR last_name LIKE 'A%' OR last_name LIKE 'M%'
 ORDER BY LENGTH(last_name) DESC;
 
 9. buatlah query untuk menampilkan nama belakang dan gaji dengan format gaji 15 karakter yang disebelah kirinya diberi simbol $
+SELECT last_name,LPAD(Salary,15,'$')
+From hr.employees;
+
 SELECT last_name , CONCAT('$', LPAD(CAST(salary AS CHAR(15)), 15, '0')) AS salary
 FROM hr.employees;
 
@@ -53,7 +56,9 @@ ORDER BY salary DESC;
 
 11. tampilkan nama belakang pegawai, hire date, yang hari pertama adalah hari senin setelah 6 bulan bekerja (beri alias sebagai REVIEW).
 dengan format "Monday, 21st December, 1987"
-
+SELECT last_name,hire_date, to_char(next_day(add_month(hire_date,6),'Monday', 'fmDay, DDth month, YYYY')
+from hr.employees;
+                                    
 12. tampilkan id manager dan gaji terendah dari pegawai untuk manager tersebut.
     tidak termasuk manager yang tidak di ketahui kemudian urutkan.
 SELECT manager_id, MIN(salary)
@@ -63,21 +68,23 @@ GROUP BY manager_id
 ORDER BY MIN(salary) ASC;
 
 13. Tampilkan nama belakang, job id, department id, nama department yang bekerja di kota 'sydney'
-SELECT d.last_name, job_id, d.department_id, department_name, f.city
-FROM hr.employees d JOIN hr.departments e ON (d.department_id = e.department_id)
-JOIN hr.locations f on (e.location_id=f.location_id)
-WHERE f.city = 'Sydney';
+SELECT last_name, job_id,E.department_id,department_name
+FROM hr.employees E JOIN hr.departments D ON (E.department_id = D.department_id)
+JOIN hr.locations L on (L.location_id=D.location_id)
+WHERE lower(city) = 'sydney';
 
 14. Tampilkan nama pegawai, no department yang max salary nya diantara 5000 sampai dengan 20000
-SELECT First_name||''|| Last_name As "Nama_Pegawai" , department_id
+SELECT last_name, department-id, max(salary)
 FROM hr.employees
-WHERE salary >= 5000 AND salary <= 20000
-ORDER BY salary DESC;
+GROUP BY department_id, last_name
+HAVING max(salary) between 5000 AND 20000;
 
 15. Tampilkan Alamat, kode pos, kota, dan id region nya 3
-SELECT street_address, postal_code, City, region_id
-FROM hr.locations d join hr.countries e on (d.country_id = e.country_id)
-WHERE region_id LIKE '3';
+SELECT street_address, postal_code,city,R.region_id
+FROM hr.locations L
+JOIN hr.countries C ON (L.country_id=C.country_id)
+JOIN hr.regions R ON (C.region_id=R.region_id)
+WHERE R.region_id = 3;
 
 16. Tampilkan rata-rata gaji pegawai yang telah bekerja selama 16 atau 20 thn
 SELECT AVG (salary)
@@ -85,8 +92,8 @@ FROM hr.employees
 WHERE ROUND((sysdate-hire_date)/365) IN ('16','20');
 
 17. Tampilkan nama belakang dan hitung berapa bulan pegawai telah bekerja hingga saat ini (lakukan pengurutan berdasarkan lama bekerja).
-SELECT last_name, round((sysdate-hire_date)/52) AS "Lama_Kerja"
-FROM hr.employeeS
+SELECT last_name, round((sysdate-hire_date)/30) AS "Lama_Kerja"
+FROM hr.employees
 ORDER BY "Lama_Kerja";
 
 18. tampilkan nama-nama department yang dekepalai oleh Neena Kochar
