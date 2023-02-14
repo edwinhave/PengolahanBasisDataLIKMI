@@ -58,6 +58,13 @@ ORDER BY salary DESC;
 dengan format "Monday, 21st December, 1987"
 SELECT last_name,hire_date, to_char(next_day(add_month(hire_date,6),'Monday', 'fmDay, DDth month, YYYY')
 from hr.employees;
+
+--REVISI MENYUSUL✅✅
+SELECT last_name, TO_CHAR(hire_date,'fmDay, DD MM YY'), hire_date
+FROM hr.employees
+WHERE TO_CHAR(hire_date,'fmDay, DD MM YYYY') = 'Monday';
+--REVISI MENYUSUL✅✅
+                                    
                                     
 12. tampilkan id manager dan gaji terendah dari pegawai untuk manager tersebut.
     tidak termasuk manager yang tidak di ketahui kemudian urutkan.
@@ -90,6 +97,13 @@ WHERE R.region_id = 3;
 SELECT AVG (salary)
 FROM hr.employees
 WHERE ROUND((sysdate-hire_date)/365) IN ('16','20');
+                                    
+--YANG BENAR✅✅✅✅                                    
+SELECT AVG(salary), ROUND((SYSDATE-hire_date)/365.0)
+FROM hr.employees
+WHERE ROUND((SYSDATE-hire_date)/365.0) = 16
+OR ROUND((SYSDATE-hire_date)/365,0) = 20
+GROUP BY ROUND((SYSDATE-hire_date)/365.0);
 
 17. Tampilkan nama belakang dan hitung berapa bulan pegawai telah bekerja hingga saat ini (lakukan pengurutan berdasarkan lama bekerja).
 SELECT last_name, round((sysdate-hire_date)/30) AS "Lama_Kerja"
@@ -109,3 +123,8 @@ JOIN hr.countries g ON (f.country_id=g.country_id)
 WHERE g.country_name LIKE 'United Kingdom';
 
 20. tampilkan nama lengkap pegawai, tanggal masuk pegawai, nama lengkap manajernya, dan tanggal masuk manajernya untuk pegawai yang bekerja lebih dulu dari manajernya (berikan nama alias untuk masing-masing kolom)
+SELECT (E.first_name || ' ' || E.last_name) AS NAMA, E.hire_date,
+(M.first_name || ' ' || M.last_name) AS NAMA, M.hire_date
+FROM hr.employees E join hr.employees M
+ON (E.manager_id = M.employee_id)
+WHERE E.hire_date < M.hire_date;
