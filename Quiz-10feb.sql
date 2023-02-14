@@ -17,4 +17,23 @@ FROM hr.employees
 WHERE TRUNC((SYSDATE - TO_DATE('31-DEC-07')) / 365) > 10;
 
 --4. Tampilkan jumlah pegawai yang direkrut tiap bulan pada tahun 2003 terurut bulan
+--BENAR TAPI SALAH
+SELECT TO_CHAR(hire_date, 'MONTH') as "Month", COUNT(*) as "NOMOR"
+FROM hr.employees
+WHERE TO_CHAR(hire_date, 'YYYY') = 2006
+GROUP BY TO_CHAR(hire_date, 'MONTH')
+ORDER BY "Month";
+-- YANG BENER
+SELECT count(*),to_char(hire_date,'fmMon')
+FROM hr.employees
+WHERE to_char(hire_date,'fmYYYY') ='2003'
+GROUP BY to_char(hire_date,'fmMon'),hire_date
+ORDER BY hire_date;
+
 --5. Tampilkan kode pekerjaan, nama pekerjaan dan jumlah pegawai di masing-masing pekerjaan yang di rekrut pada tahun 2003 dan bekerja sebagai sales
+SELECT E.job_id, job_title, count(*), TO_CHAR(hire_date, 'fmYYYY')
+FROM hr.employees E join hr.jobs J
+ON (E.job_id = J.job_id)
+WHERE job_title LIKE '%Sales%'
+AND TO_CHAR(hire_date, 'fmYYYY') = '2004'
+GROUP BY E.job_id, job_title,TO_CHAR(hire_date, 'fmYYYY');
