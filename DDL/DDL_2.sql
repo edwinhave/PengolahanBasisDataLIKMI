@@ -153,3 +153,31 @@ WHERE  Custno ='C0954327';
 --2. Ubah saldo customer ‘Bob Mann’ menjadi 100
 --3. Naikkan semua saldo 10% dari semula
 --4. Kembalikan nilai saldo ke nilai semula
+
+COMMIT
+
+INSERT INTO Customer (
+    Custno,
+    CustFirstName)
+VALUES (
+    'C9999',
+    'Edwin'
+)
+
+
+
+--SIMULASI SAVEPOINT
+UPDATE  Customer 
+SET custbal = custbal + 100;
+EXEC SAVEPOINT naik100;
+
+UPDATE  Customer 
+SET custbal = custbal + 100;
+EXEC SAVEPOINT naik200;
+
+SELECT*FROM Customer;
+
+UPDATE  Customer 
+SET custbal = custbal + 100;
+
+ROLLBACK TO SAVEPOINT naik200;
