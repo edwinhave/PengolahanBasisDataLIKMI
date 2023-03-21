@@ -87,8 +87,10 @@ INSERT INTO TRANSAKSI (transaksi_id,transaksi_karyawan,transaksi_kostumer,transa
 SELECT*FROM TRANSAKSI
 
 
---VIEW MASIH DI KERJAKAN
-SELECT T.transaksi_id AS ID_TRANSAKSI, K.kostumer_nama AS NAMA_KOSTUMER,A.MOBIL_MERK AS MEREK_MOBIL, T.transaksi_tgl_pinjam AS TANGGAL_PINJAM, T.transaksi_tgl_kembali AS TANGGAL_KEMBALI
+CREATE VIEW  nota_transaksi AS
+SELECT T.transaksi_id AS ID_TRANSAKSI, K.kostumer_nama AS NAMA_KOSTUMER, A.MOBIL_MERK AS MEREK_MOBIL, T.transaksi_tgl_pinjam AS TANGGAL_PINJAM, T.transaksi_tgl_kembali AS TANGGAL_KEMBALI
 FROM transaksi T
 JOIN kostumer K ON (T.transaksi_kostumer = K.kostumer_id)
-JOIN mobil A ON (T.transaksi_mobil = A.mobil_merk);
+JOIN mobil A ON (T.transaksi_mobil = A.mobil_id);
+
+SELECT*FROM nota_transaksi;
