@@ -65,8 +65,11 @@ INSERT INTO Kostumer (kostumer_id,kostumer_nama,kostumer_alamat,kostumer_jk,kost
 SELECT*FROM MOBIL;
 SELECT*FROM KOSTUMER;
 
-CREATE INDEX idx_mobil_id
-ON Mobil(mobil_id);
+CREATE INDEX idx_mobil_merk
+ON Mobil(mobil_merk);
+
+CREATE INDEX idx_kostumer_nama
+ON Kostumer(kostumer_nama);
 
 CREATE SEQUENCE transaksi_seq
 INCREMENT BY 1
@@ -80,3 +83,12 @@ INSERT INTO TRANSAKSI (transaksi_id,transaksi_karyawan,transaksi_kostumer,transa
 INSERT INTO TRANSAKSI (transaksi_id,transaksi_karyawan,transaksi_kostumer,transaksi_mobil,transaksi_tgl_pinjam,transaksi_tgl_kembali,transaksi_harga,transaksi_denda,transaksi_tgl,transaksi_totaldenda,transaksi_status,transaksi_tgldikembalikan) VALUES (transaksi_seq.nextval,'Dode','H0003','C0003','15-MAR-2023','20-FEB-2023','400000000','0','01-JAN-2023','0','Baik','04-JAN-2023');
 INSERT INTO TRANSAKSI (transaksi_id,transaksi_karyawan,transaksi_kostumer,transaksi_mobil,transaksi_tgl_pinjam,transaksi_tgl_kembali,transaksi_harga,transaksi_denda,transaksi_tgl,transaksi_totaldenda,transaksi_status,transaksi_tgldikembalikan) VALUES (transaksi_seq.nextval,'Dodi','H0004','C0002','20-MAY-2023','25-MAY-2023','200000000','0','01-JAN-2023','0','Baik','04-JAN-2023');
 INSERT INTO TRANSAKSI (transaksi_id,transaksi_karyawan,transaksi_kostumer,transaksi_mobil,transaksi_tgl_pinjam,transaksi_tgl_kembali,transaksi_harga,transaksi_denda,transaksi_tgl,transaksi_totaldenda,transaksi_status,transaksi_tgldikembalikan) VALUES (transaksi_seq.nextval,'Dodu','H0005','C0001','25-JUN-2023','30-JUN-2023','50000000','0','01-JAN-2023','0','Baik','04-JAN-2023');
+
+SELECT*FROM TRANSAKSI
+
+
+--VIEW MASIH DI KERJAKAN
+SELECT T.transaksi_id AS ID_TRANSAKSI, K.kostumer_nama AS NAMA_KOSTUMER,A.MOBIL_MERK AS MEREK_MOBIL, T.transaksi_tgl_pinjam AS TANGGAL_PINJAM, T.transaksi_tgl_kembali AS TANGGAL_KEMBALI
+FROM transaksi T
+JOIN kostumer K ON (T.transaksi_kostumer = K.kostumer_id)
+JOIN mobil A ON (T.transaksi_mobil = A.mobil_merk);
