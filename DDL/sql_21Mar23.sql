@@ -1,3 +1,5 @@
+©Copyright by Edwin Jhon V.S
+
 --1. Buatlah 3 tabel lengkap beserta dengan PK dan FK
 CREATE TABLE Mobil(
     mobil_id char(5),
