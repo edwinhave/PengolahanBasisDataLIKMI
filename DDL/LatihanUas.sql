@@ -50,60 +50,46 @@ foreign key(id_penyewa) references penyewa(id_penyewa);
 
 
 --2.	Isilah data ke dalam table tersebut dengan data yang ada pada file (lat_pbd_m_1_data.jpg)
-INSERT INTO Film VALUES ('A01', 'Action', 'Spiderman', 3);
-INSERT INTO Film VALUES ('A02', 'Action', 'Spiderman 2', 5);
-INSERT INTO Film VALUES ('A03', 'Action', 'Justice League', 4);
-INSERT INTO Film VALUES ('D01', 'Drama', 'Love Story', 3);
-INSERT INTO Film VALUES ('D02', 'Drama', 'Beauty And The Beast', 5);
-INSERT INTO Film VALUES ('D03', 'Drama', 'Remember Me', 3);
-INSERT INTO Film VALUES ('H01', 'Horror', 'Evil Death', 2);
-INSERT INTO Film VALUES ('H02', 'Horror', 'Conjuring', 3);
-INSERT INTO Film VALUES ('H03', 'Horror', 'Insidious', 5);
+INSERT INTO Film (kode_film,jenis,judul_film,jumlah) VALUES ('A01', 'Action', 'Spiderman', 3);
+INSERT INTO Film (kode_film,jenis,judul_film,jumlah) VALUES ('A02', 'Action', 'Spiderman 2', 5);
+INSERT INTO Film (kode_film,jenis,judul_film,jumlah) VALUES ('A03', 'Action', 'Justice League', 4);
+INSERT INTO Film (kode_film,jenis,judul_film,jumlah) VALUES ('D01', 'Drama', 'Love Story', 3);
+INSERT INTO Film (kode_film,jenis,judul_film,jumlah) VALUES ('D02', 'Drama', 'Beauty And The Beast', 5);
+INSERT INTO Film (kode_film,jenis,judul_film,jumlah) VALUES ('D03', 'Drama', 'Remember Me', 3);
+INSERT INTO Film (kode_film,jenis,judul_film,jumlah) VALUES ('H01', 'Horror', 'Evil Death', 2);
+INSERT INTO Film (kode_film,jenis,judul_film,jumlah) VALUES ('H02', 'Horror', 'Conjuring', 3);
+INSERT INTO Film (kode_film,jenis,judul_film,jumlah) VALUES ('H03', 'Horror', 'Insidious', 5);
 
 
-INSERT INTO Penyewa VALUES ('P-000'||seq_id_penyewa.NEXTVAL, 'SIM', 'Sandi', 'Jl. Banda 10');
-INSERT INTO Penyewa VALUES ('P-000'||seq_id_penyewa.NEXTVAL, 'KTP', 'Andi', 'Jl. Melati 1');
-INSERT INTO Penyewa VALUES ('P-000'||seq_id_penyewa.NEXTVAL, 'SIM', 'Budi', 'Jl. Kalimalang 12');
-INSERT INTO Penyewa VALUES ('P-000'||seq_id_penyewa.NEXTVAL, 'SIM', 'Willy', 'Jl. Cimacan 45');
-INSERT INTO Penyewa VALUES ('P-000'||seq_id_penyewa.NEXTVAL, 'KTP', 'Tuti', 'Jl. Cibitung 16');
+INSERT INTO Penyewa (id_penyewa,jenis_identitas,nama,alamat) VALUES ('P-000'||seq_id_penyewa.NEXTVAL, 'SIM', 'Sandi', 'Jl. Banda 10');
+INSERT INTO Penyewa (id_penyewa,jenis_identitas,nama,alamat) VALUES ('P-000'||seq_id_penyewa.NEXTVAL, 'KTP', 'Andi', 'Jl. Melati 1');
+INSERT INTO Penyewa (id_penyewa,jenis_identitas,nama,alamat) VALUES ('P-000'||seq_id_penyewa.NEXTVAL, 'SIM', 'Budi', 'Jl. Kalimalang 12');
+INSERT INTO Penyewa (id_penyewa,jenis_identitas,nama,alamat) VALUES ('P-000'||seq_id_penyewa.NEXTVAL, 'SIM', 'Willy', 'Jl. Cimacan 45');
+INSERT INTO Penyewa (id_penyewa,jenis_identitas,nama,alamat) VALUES ('P-000'||seq_id_penyewa.NEXTVAL, 'KTP', 'Tuti', 'Jl. Cibitung 16');
 
 
-INSERT INTO Penyewaan VALUES ('S00'||seq_kode_sewa.NEXTVAL, '02-JAN-07', 'P-0001', '03-JAN-07');
-INSERT INTO Penyewaan VALUES ('S00'||seq_kode_sewa.NEXTVAL, '03-JAN-07', 'P-0003', '04-JAN-07');
-INSERT INTO Penyewaan VALUES ('S00'||seq_kode_sewa.NEXTVAL, '10-JAN-07', 'P-0004', '13-JAN-07');
-INSERT INTO Penyewaan VALUES ('S00'||seq_kode_sewa.NEXTVAL, '15-JAN-07', 'P-0002', '01-FEB-07');
-INSERT INTO Penyewaan VALUES ('S00'||seq_kode_sewa.NEXTVAL, '28-JAN-07', 'P-0005', '06-FEB-07');
-INSERT INTO Penyewaan VALUES ('S00'||seq_kode_sewa.NEXTVAL, '04-FEB-07', 'P-0001', '07-FEB-07');
+INSERT INTO Penyewaan (kode_sewa,tgl_sewa,id_penyewa,tgl_kembali) VALUES ('S00'||seq_kode_sewa.NEXTVAL, '02-JAN-07', 'P-0001', '03-JAN-07');
+INSERT INTO Penyewaan (kode_sewa,tgl_sewa,id_penyewa,tgl_kembali) VALUES ('S00'||seq_kode_sewa.NEXTVAL, '03-JAN-07', 'P-0003', '04-JAN-07');
+INSERT INTO Penyewaan (kode_sewa,tgl_sewa,id_penyewa,tgl_kembali) VALUES ('S00'||seq_kode_sewa.NEXTVAL, '10-JAN-07', 'P-0004', '13-JAN-07');
+INSERT INTO Penyewaan (kode_sewa,tgl_sewa,id_penyewa,tgl_kembali) VALUES ('S00'||seq_kode_sewa.NEXTVAL, '15-JAN-07', 'P-0002', '01-FEB-07');
+INSERT INTO Penyewaan (kode_sewa,tgl_sewa,id_penyewa,tgl_kembali) VALUES ('S00'||seq_kode_sewa.NEXTVAL, '28-JAN-07', 'P-0005', '06-FEB-07');
+INSERT INTO Penyewaan (kode_sewa,tgl_sewa,id_penyewa,tgl_kembali) VALUES ('S00'||seq_kode_sewa.NEXTVAL, '04-FEB-07', 'P-0001', '07-FEB-07');
 
 
-INSERT INTO detail_sewa
-VALUES ('S001', 'A01');
-INSERT INTO detail_sewa
-VALUES ('S001', 'A02');
-INSERT INTO detail_sewa
-VALUES ('S002', 'D01');
-INSERT INTO detail_sewa
-VALUES ('S002', 'D02');
-INSERT INTO detail_sewa
-VALUES ('S003', 'D03');
-INSERT INTO detail_sewa
-VALUES ('S004', 'A01');
-INSERT INTO detail_sewa
-VALUES ('S004', 'A02');
-INSERT INTO detail_sewa
-VALUES ('S004', 'D03');
-INSERT INTO detail_sewa
-VALUES ('S004', 'H03');
-INSERT INTO detail_sewa
-VALUES ('S005', 'D03');
-INSERT INTO detail_sewa
-VALUES ('S005', 'H01');
-INSERT INTO detail_sewa
-VALUES ('S006', 'A03');
-INSERT INTO detail_sewa
-VALUES ('S006', 'D03');
-INSERT INTO detail_sewa
-VALUES ('S006', 'H03');
+INSERT INTO detail_sewa (kode_sewa,kode_film) VALUES ('S001', 'A01');
+INSERT INTO detail_sewa (kode_sewa,kode_film) VALUES ('S001', 'A02');
+INSERT INTO detail_sewa (kode_sewa,kode_film) VALUES ('S002', 'D01');
+INSERT INTO detail_sewa (kode_sewa,kode_film) VALUES ('S002', 'D02');
+INSERT INTO detail_sewa (kode_sewa,kode_film) VALUES ('S003', 'D03');
+INSERT INTO detail_sewa (kode_sewa,kode_film) VALUES ('S004', 'A01');
+INSERT INTO detail_sewa (kode_sewa,kode_film) VALUES ('S004', 'A02');
+INSERT INTO detail_sewa (kode_sewa,kode_film) VALUES ('S004', 'D03');
+INSERT INTO detail_sewa (kode_sewa,kode_film) VALUES ('S004', 'H03');
+INSERT INTO detail_sewa (kode_sewa,kode_film) VALUES ('S005', 'D03');
+INSERT INTO detail_sewa (kode_sewa,kode_film) VALUES ('S005', 'H01');
+INSERT INTO detail_sewa (kode_sewa,kode_film) VALUES ('S006', 'A03');
+INSERT INTO detail_sewa (kode_sewa,kode_film) VALUES ('S006', 'D03');
+INSERT INTO detail_sewa (kode_sewa,kode_film) VALUES ('S006', 'H03');
 
 --3.	Buatlah sequence untuk Id_penyewa di Tabel Penyewa dan kode_sewa di table Penyewaan
 CREATE SEQUENCE seq_id_penyewa
