@@ -1,6 +1,12 @@
 ©Copyright by Edwin Jhon V.S
 
 
+BEGINI CARA MEMBUAT TABLE
+
+<nama_table> <tipe_date>(jumlah digit)
+misalkan:
+alamat varchar2(50);
+
 CREATE TABLE Mobil(
     mobil_id char(5),
     mobil_merk varchar2(20),
@@ -34,6 +40,20 @@ CREATE TABLE Transaksi(
     transaksi_tgldikembalikan date
 );
 
+
+📝Perhatikan
+Berbagai macam tiper data
+1. char --> tipe data char itu tujuannya untuk primary Key, kamu udah harus tahu apa itu Primary Key. (Misalkan kode barang, id pegawai, NPM)
+2. varchar2 --> di live oracle, tipe data ini dikhususkan untuk isi, nama barang, alamat, nama orang dll
+3. date --> itu untuk tanggal, misalkan (01-JAN-2022 atau 01/JAN/2022)
+4. number --> itu untuk jumlah barang, harga dll
+
+
+PENAMBAHAN PK
+ALTER TABLE <nama_table> ADD CONSTRAINT <nama_Constraint<
+PRIMARY KEY <nama_Field_yang mau di jadikan PK>;
+
+
 ALTER TABLE Mobil ADD CONSTRAINT pk_mobil_id
 PRIMARY KEY (mobil_id);
 
@@ -42,6 +62,11 @@ PRIMARY KEY (kostumer_id);
 
 ALTER TABLE Transaksi ADD CONSTRAINT pk_transaksi
 PRIMARY KEY (transaksi_id);
+
+
+ALTER TABLE <NAMA_TABLE> ADD CONSTRAINT <NAMA_CONSTRAINT>
+FOREIGN KEY(Nama_field yang mau dijadikan Foreign KEy) REFERENCES "namaTable(nama_field)";
+								    Ini tabel rujukannya
 
 ALTER TABLE Transaksi ADD CONSTRAINT fk_tf_mobil
 FOREIGN KEY(transaksi_mobil) REFERENCES mobil(mobil_id);
